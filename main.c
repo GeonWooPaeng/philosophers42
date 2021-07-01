@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 15:53:16 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/06/29 17:09:52 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/06/29 19:08:51 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,41 +15,45 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-void *p_function(void *data);
-
-int main(void)
+void *t_function(void *param)
 {
-	pthread_t pthread;
-	int thr_id;
-	int status;
-	char p1[] = "thread_created";
-	char p2[] = "thread_main";
-
-	thr_id = pthread_create(&pthread, NULL, p_function, (void *)p1);
-	if (thr_id < 0)
+	for (int i= 1; i<=5; i++)
 	{
-		perror("pthread() create error");
-		exit(EXIT_FAILURE);
+		usleep(1000 * 1000 * 2);
+		printf("%s: ", (char *)param);
+		printf("쓰레드 함수 실행중 %d/5\n",i);
 	}
-
-	p_function((void *)p2);
-	printf("created thread id:%lx\n", pthread);
-	printf("end\n");
-	return (0);
+	printf("쓰레드 함수 종료\n");
+	return (void *)2147483647;
 }
 
-void *p_function(void *data)
+int main()
 {
-	pthread_t tid;
+	pthread_t p_thread1;
+	pthread_t p_thread2;
+	int thr_id1;
+	int thr_id2;
 
-	char* thread_name = (char *)data;
-	int i = 0;
-	tid = pthread_self();
-
-	while (i < 3)
+	thr_id1 = pthread_create(&p_thread1, NULL, t_function, "thread1");
+	thr_id2 = pthread_create(&p_thread2, NULL, t_function, "thread2");
+	if (thr_id1 < 0 || thr_id2 < 0)
 	{
-		printf("thread name: %s, tid: %x\n", thread_name, (unsigned int)tid);
-		i++;
+		perror("thread create error: ");
+		exit(0);
+	}
+	pthread_detach(p_thread1);
+	pthread_detach(p_thread2);
+	// pthread_join(p_thread1, 0);
+	// pthread_join(p_thread2, 0);
+
+	int s = 0;
+	while (42)
+	{
+		printf("%d초 경과\n", s++);
 		usleep(1000 * 1000);
 	}
+	printf("main() 종료 \n");
+	return (0);
+
+	
 }
