@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 13:26:58 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/01 16:23:10 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/01 17:52:54 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ int	ft_atoi(char *str)
 		str++;
 	}
 	return (result * sign);
+}
+
+int ft_error(char *s)
+{
+	printf("%s\n", s);
+	return (-1);
 }
