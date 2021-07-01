@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 15:53:16 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/06/29 19:08:51 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/01 16:44:30 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,45 +15,35 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-void *t_function(void *param)
+pthread_mutex_t mutex_lock;
+
+int g_cnt = 0;
+
+void *t_function(void *data)
 {
-	for (int i= 1; i<=5; i++)
+	int i;
+	char *thread_name = (char *)data;
+	pthread_mutex_lock(&mutex_lock);
+	g_cnt = 0;
+	
+	for (i = 0; i < 3; i++)
 	{
-		usleep(1000 * 1000 * 2);
-		printf("%s: ", (char *)param);
-		printf("쓰레드 함수 실행중 %d/5\n",i);
+		printf("%s cnt %d\n", thread_name, g_cnt);
+		g_cnt += 1;
+		sleep(1);
 	}
-	printf("쓰레드 함수 종료\n");
-	return (void *)2147483647;
+	pthread_mutex_unlock(&mutex_lock);
 }
 
 int main()
 {
-	pthread_t p_thread1;
-	pthread_t p_thread2;
-	int thr_id1;
-	int thr_id2;
+	pthread_t p_thread1, p_thread2;
+	int status;
 
-	thr_id1 = pthread_create(&p_thread1, NULL, t_function, "thread1");
-	thr_id2 = pthread_create(&p_thread2, NULL, t_function, "thread2");
-	if (thr_id1 < 0 || thr_id2 < 0)
-	{
-		perror("thread create error: ");
-		exit(0);
-	}
-	pthread_detach(p_thread1);
-	pthread_detach(p_thread2);
-	// pthread_join(p_thread1, 0);
-	// pthread_join(p_thread2, 0);
+	pthread_mutex_init(&mutex_lock, NULL);
+	pthread_create(&p_thread1, NULL, t_function, (void *)"Thread1");
+	pthread_create(&p_thread2, NULL, t_function, (void *)"thread2");
 
-	int s = 0;
-	while (42)
-	{
-		printf("%d초 경과\n", s++);
-		usleep(1000 * 1000);
-	}
-	printf("main() 종료 \n");
-	return (0);
-
-	
+	pthread_join(p_thread1, (void *)&status);
+	pthread_join(p_thread2, (void *)&status); 
 }
