@@ -6,13 +6,46 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 12:20:43 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/01 17:55:09 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/05 17:33:16 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	main(int argc, char *argv[])
+
+void	ft_philo_eats(t_philo *philo)
+{
+	t_game *game;
+
+	
+}
+
+// void	p_thread()
+// {
+	// if (짝수 부분)
+		// usleep();
+	// while (죽지 않을 때까지)
+		// {
+			// 철학자 먹는다
+			// if (다 먹으면)
+				// 끝
+		// }
+// }
+
+int		ft_philo_start(t_game *game)
+{
+	int		idx;
+
+	idx = 0;
+	while (idx < game->philo_num)
+	{
+		if (pthread_create(&(game->philos[idx].thread_id), NULL, p_thread, &(game->philos[idx])))
+			return (0);
+		idx++;
+	}
+}
+
+int		main(int argc, char *argv[])
 {
 	t_game	philo_info;
 

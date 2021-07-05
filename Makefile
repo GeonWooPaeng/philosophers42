@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/07/05 12:11:44 by gpaeng            #+#    #+#              #
+#    Updated: 2021/07/05 12:12:08 by gpaeng           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -g
@@ -8,7 +20,9 @@ DIR_H = ./includes/
 DIR_S = ./srcs/
 DIR_O = ./
 
-SRC = main.c		\
+SRC =	ft_utils.c	\
+		ft_init.c	\
+		main.c		\
 
 SRCS = $(addprefix $(DIR_S), $(SRC))
 
