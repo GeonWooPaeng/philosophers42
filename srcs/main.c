@@ -6,29 +6,37 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 12:20:43 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/07 11:54:51 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/07 16:53:29 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	ft_philo_eats(t_philo *philo)
+void	ft_philo_eat(t_philo *philo)
+{
+	t_game *game;
+
+	game = philo->game;
+	pthread_mutex_lock(&(game->eating));
+	ft_printf(game, "is eating", philo->id);
+	pthread_mutex_unlock(&(game->eating));
+	(game->eat_num)++;
+}
+
+void	ft_philo_do(t_philo *philo)
 {
 	t_game *game;
 
 	game = philo->game;
 	//fork
 	pthread_mutex_lock(&(game->forks[philo->left_fork]));
-	printf(""); // has taken a fork
+	ft_printf(game, "has taken a fork", philo->id);
 	pthread_mutex_lock(&(game->forks[philo->right_fork]));
-	printf(""); // has taken a fork
+	ft_printf(game, "has taken a fork", philo->id);
 	//eat
-	pthread_mutex_lock(&(game->eating));
-	printf(""); //is eating
-	pthread_mutex_unlock(&(game->eating));
-	(game->eat_num)++;
-	pthread_mutex_unlock(&(game->forks[philo->left_fork]));
+	ft_philo_eat(philo);
 	pthread_mutex_unlock(&(game->forks[philo->right_fork]));
+	pthread_mutex_unlock(&(game->forks[philo->left_fork]));
 }
 
 void	ft_p_thread(t_philo *philo)
@@ -42,11 +50,11 @@ void	ft_p_thread(t_philo *philo)
 		usleep(15000);
 	while (!(game->die))
 	{
-		ft_philo_eats(philo);
+		ft_philo_do(philo);
 		if (game->eat_num >= game->philo_num)
 			break ;
-		printf(""); // is sleeping
-		printf(" "); // is thinking 
+		ft_printf(game, "is sleeping", philo->id); // is sleeping
+		ft_printf(game, "is thinking", philo->id); // is thinking 
 	}
 }
 
@@ -62,8 +70,7 @@ void	ft_end_philo(t_game *game, t_philo *philo)
 		pthread_mutex_destroy(&(game->forks[idx++]));
 	free(game->philo);
 	free(game->forks);
-	pthread_mutex_destroy(&(game->sleeping));
-	pthread_mutex_destroy(&(game->thinking));
+	pthread_mutex_destroy(&(game->write));
 }
 
 int		ft_philo_start(t_game *game)
@@ -91,6 +98,5 @@ int		main(int argc, char *argv[])
 		return (ft_error("[Error] check philo start"));
 	else
 		return (ft_error("[Error] check argc"));
-
 	return (0); //프로그램 정상 종료 알려준다.
 }

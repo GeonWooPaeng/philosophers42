@@ -6,19 +6,19 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 13:26:58 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/07 13:26:32 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/07 16:30:44 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <../includes/philo.h>
 
-int	ft_isspace(char c)
+int		ft_isspace(char c)
 {
 	return (c == '\f' || c == '\n' || c == '\r' ||
 	c == '\t' || c == '\v' || c == ' ');
 }
 
-int	ft_atoi(char *str)
+int		ft_atoi(char *str)
 {
 	int result;
 	int sign;
@@ -40,7 +40,7 @@ int	ft_atoi(char *str)
 	return (result * sign);
 }
 
-int ft_error(char *s)
+int		ft_error(char *s)
 {
 	printf("%s\n", s);
 	return (-1);
@@ -48,12 +48,13 @@ int ft_error(char *s)
 
 void	ft_printf(t_game *game, char *str, int id)
 {
-	// pthread_mutex_lock(&(game->));
+	pthread_mutex_lock(&(game->write));
 	if (!(game->die))
 	{
-		// printf("%lli ", );
-		// printf("%i ", id + 1);
-		// printf("%s\n", str);
+		// printf("%lli ", ); //속도
+		printf("%i ", id + 1);
+		printf("%s\n", str);
 	}
-	// pthread_mutex_unlock(&(game->));
+	pthread_mutex_unlock(&(game->write));
+	return ;
 }
