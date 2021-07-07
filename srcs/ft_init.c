@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 14:17:50 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/06 16:32:40 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/07 11:36:54 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_philo_init(t_game *game)
 		return (-1);
 	while (idx < game->philo_num)
 	{
-		game->philo[idx].thread_id = idx;
+		game->philo[idx].id = idx;
 		game->philo[idx].left_fork = idx;
 		game->philo[idx].right_fork = (idx + 1) % game->philo_num;
 		game->philo[idx].game = game;
@@ -54,6 +54,4 @@ int ft_philo_input(t_game *game, char *argv[], int argc)
 		return (-1);
 	if (ft_philo_init(game))
 		return (-1);
-
-	
 }

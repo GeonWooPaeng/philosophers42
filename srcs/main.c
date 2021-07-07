@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 12:20:43 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/06 16:32:45 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/07 11:54:51 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_p_thread(t_philo *philo)
 	
 	idx = 0;
 	game = philo->game;
-	if (philo->thread_id % 2)
+	if ((philo->id) % 2)
 		usleep(15000);
 	while (!(game->die))
 	{
@@ -56,10 +56,12 @@ void	ft_end_philo(t_game *game, t_philo *philo)
 
 	idx = 0;
 	while (idx < game->philo_num)
-		pthread_join(philo[idx++].thread_id, NULL);
+		pthread_join(philo[idx++].id, NULL);
 	idx = 0;
 	while (idx < game->philo_num)
 		pthread_mutex_destroy(&(game->forks[idx++]));
+	free(game->philo);
+	free(game->forks);
 	pthread_mutex_destroy(&(game->sleeping));
 	pthread_mutex_destroy(&(game->thinking));
 }
@@ -71,7 +73,7 @@ int		ft_philo_start(t_game *game)
 	idx = 0;
 	while (idx < game->philo_num)
 	{
-		if (pthread_create(&(game->philo[idx].thread_id), NULL, ft_p_thread, &(game->philo[idx])))
+		if (pthread_create(&(game->philo[idx].id), NULL, ft_p_thread, &(game->philo[idx])))
 			return (0);
 		idx++;
 	}
@@ -89,5 +91,6 @@ int		main(int argc, char *argv[])
 		return (ft_error("[Error] check philo start"));
 	else
 		return (ft_error("[Error] check argc"));
+
 	return (0); //프로그램 정상 종료 알려준다.
 }

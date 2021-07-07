@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 13:26:58 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/01 17:52:54 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/07 13:26:32 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_atoi(char *str)
 	{
 		if (*str == '-')
 			sign *= -1;
-	}	
+	}
 	while (*str >= '0' && *str <= '9')
 	{
 		result = (result * 10) + (*str - '0');
@@ -44,4 +44,16 @@ int ft_error(char *s)
 {
 	printf("%s\n", s);
 	return (-1);
+}
+
+void	ft_printf(t_game *game, char *str, int id)
+{
+	// pthread_mutex_lock(&(game->));
+	if (!(game->die))
+	{
+		// printf("%lli ", );
+		// printf("%i ", id + 1);
+		// printf("%s\n", str);
+	}
+	// pthread_mutex_unlock(&(game->));
 }

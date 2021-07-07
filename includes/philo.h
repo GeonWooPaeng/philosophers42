@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 12:20:39 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/06 16:32:40 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/07 11:36:11 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 typedef struct		s_philo
 {
-	pthread_t		thread_id;
+	int				id;
 	int				left_fork;
 	int				right_fork;
 	struct s_game	*game;
