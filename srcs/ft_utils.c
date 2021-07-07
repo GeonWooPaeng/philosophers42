@@ -6,11 +6,11 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 13:26:58 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/07 16:30:44 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/07 17:20:47 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <../includes/philo.h>
+#include "../includes/philo.h"
 
 int		ft_isspace(char c)
 {

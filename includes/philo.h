@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 12:20:39 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/07 17:01:57 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/07 17:39:05 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct		s_philo
 	int				left_fork;
 	int				right_fork;
 	struct s_game	*game;
+	pthread_t		thread_id;
 }					t_philo;
 
 typedef struct		s_game
@@ -53,16 +54,16 @@ void	ft_printf(t_game *game, char *str, int id);
 /*
 **ft_init.c
 */
+int		ft_philo_input(t_game *game, char *argv[], int argc);
 int		ft_philo_init(t_game *game);
 int		ft_check_init(t_game *game);
-int		ft_philo_input(t_game *game, char *argv[], int argc);
 
 /*
 **main.c
 */
 void	ft_philo_eat(t_philo *philo);
 void	ft_philo_do(t_philo *philo);
-void	ft_p_thread(t_philo *philo);
+void	*ft_p_thread(void *philo);
 void	ft_end_philo(t_game *game, t_philo *philo);
 int		ft_philo_start(t_game *game);
 int		main(int argc, char *argv[]);

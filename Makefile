@@ -6,13 +6,13 @@
 #    By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/05 12:11:44 by gpaeng            #+#    #+#              #
-#    Updated: 2021/07/05 12:12:08 by gpaeng           ###   ########.fr        #
+#    Updated: 2021/07/07 18:14:50 by gpaeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-CFLAGS += -g
+CFLAGS = -Wextra -Werror -Wall
+CFLAGS += -g -lpthread
 
 NAME = philo
 

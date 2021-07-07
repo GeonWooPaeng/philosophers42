@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 14:17:50 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/07 16:31:05 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/07 17:21:07 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		ft_philo_init(t_game *game)
 {
 	int idx;
-	
+
 	idx = 0;
 	if (!(game->philo = malloc(sizeof(t_game) * game->philo_num)))
 		return (-1);
@@ -54,4 +54,5 @@ int		ft_philo_input(t_game *game, char *argv[], int argc)
 		return (-1);
 	if (ft_philo_init(game))
 		return (-1);
+	return (0);
 }

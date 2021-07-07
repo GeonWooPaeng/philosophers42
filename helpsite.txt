@@ -3,6 +3,7 @@ https://twinw.tistory.com/97
 
 < 함수 설명 >
 https://42kchoi.tistory.com/301?category=966538
+https://bitsoul.tistory.com/156
 
 < semaphore >
 https://www.notion.so/de09d144d6414aa7bc8b43f2b6bf8722
@@ -13,6 +14,6 @@ https://bitsoul.tistory.com/172
 < git pull오류 >
 https://goddaehee.tistory.com/253
 
-
+< github >
 https://github.com/Gaspachow/philosophers-42
 https://github.com/Glagan/42-Philosophers/tree/master/philo_one
