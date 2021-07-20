@@ -6,13 +6,13 @@
 #    By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/05 12:11:44 by gpaeng            #+#    #+#              #
-#    Updated: 2021/07/07 18:14:50 by gpaeng           ###   ########.fr        #
+#    Updated: 2021/07/10 23:52:13 by gpaeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 CFLAGS = -Wextra -Werror -Wall
-CFLAGS += -g -lpthread
+CFLAGS += -g
 
 NAME = philo
 
@@ -34,7 +34,7 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lpthread
 
 clean:
 	rm -rf $(OBJS)
