@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 14:17:50 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/07 17:21:07 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/27 21:03:27 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ int		ft_philo_input(t_game *game, char *argv[], int argc)
 	game->time_to_die = ft_atoi(argv[2]);
 	game->time_to_eat = ft_atoi(argv[3]);
 	game->time_to_sleep = ft_atoi(argv[4]);
-	game->must_eat_num = -1; //없음
+	game->must_eat_num = 0;
 	game->eat_num = 0;
+	game->start_time = 0;
+	game->check_d_time = 0;
 	if (argc == 6)
 		game->must_eat_num = ft_atoi(argv[5]);
 	if (ft_check_init(game))

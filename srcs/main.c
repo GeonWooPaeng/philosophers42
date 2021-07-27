@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 12:20:43 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/20 17:11:29 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/27 21:39:35 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_philo_eat(t_philo *philo)
 	game = philo->game;
 	pthread_mutex_lock(&(game->eating));
 	ft_printf(game, "is eating", philo->id);
+	philo->check_d_time = ft_time();
 	pthread_mutex_unlock(&(game->eating));
 	(game->eat_num)++;
 	ft_eating(game);
@@ -40,7 +41,7 @@ void	ft_philo_do(t_philo *philo)
 	pthread_mutex_unlock(&(game->forks[philo->left_fork]));
 }
 
-void	*ft_p_thread(void *philo)
+void	*ft_pthread(void *philo)
 {
 	t_game	*game;
 	t_philo *philo_copy;
@@ -54,11 +55,11 @@ void	*ft_p_thread(void *philo)
 		ft_philo_do(philo_copy);
 		if (game->eat_num == game->philo_num)
 			break ;
-		ft_printf(game, "is sleeping", philo_copy->id); // is sleeping
+		ft_printf(game, "is sleeping", philo_copy->id);
 		ft_sleep(game);
-		ft_printf(game, "is thinking", philo_copy->id); // is thinking 
+		ft_printf(game, "is thinking", philo_copy->id);
 	}
-	return (NULL);
+	return (0);
 }
 
 void	ft_end_philo(t_game *game)
@@ -89,10 +90,18 @@ void	ft_death_check(t_game *game, t_philo *philo)
 		idx = 0;
 		while ((idx < game->philo_num) && (!(game->die)))
 		{
-			pthread_mutex_lock();
-			if ()
-			pthread_mutex_unlock();
+			pthread_mutex_lock(&(game->eating));
+			if (ft_time() - philo[idx].check_d_time > game->time_to_die)
+			{
+				ft_printf(game, "died", idx);
+				death_check = 1;
+			}
+			pthread_mutex_unlock(&(game->eating));
+			usleep(100);
+			idx++;
 		}
+		if (death_check)
+			break ;
 	}
 }
 
@@ -105,8 +114,9 @@ int		ft_philo_start(t_game *game)
 	game->start_time = ft_time();
 	while (idx < game->philo_num)
 	{	
+		(game->philo[idx]).check_d_time = ft_time();
 		v_philo = (void *)&(game->philo[idx]);
-		if (pthread_create(&(game->philo[idx].thread_id), NULL, ft_p_thread, v_philo))
+		if (pthread_create(&(game->philo[idx].thread_id), NULL, ft_pthread, v_philo))
 			return (-1);
 		idx++;
 	}
