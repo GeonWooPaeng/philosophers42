@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 12:20:43 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/27 21:39:35 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/28 16:41:47 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_philo_eat(t_philo *philo)
 	ft_printf(game, "is eating", philo->id);
 	philo->check_d_time = ft_time();
 	pthread_mutex_unlock(&(game->eating));
-	(game->eat_num)++;
+	(philo->eat_cnt)++;
 	ft_eating(game);
 }
 
@@ -53,10 +53,10 @@ void	*ft_pthread(void *philo)
 	while (!(game->die))
 	{
 		ft_philo_do(philo_copy);
-		if (game->eat_num == game->philo_num)
+		if (game->eat_check)
 			break ;
 		ft_printf(game, "is sleeping", philo_copy->id);
-		ft_sleep(game);
+		ft_sleeping(game);
 		ft_printf(game, "is thinking", philo_copy->id);
 	}
 	return (0);
@@ -64,61 +64,73 @@ void	*ft_pthread(void *philo)
 
 void	ft_end_philo(t_game *game)
 {
-	int		idx;
+	int		i;
 	t_philo	*philo;
 	
-	idx = 0;
+	i = 0;
 	philo = game->philo;
-	while (idx < game->philo_num)
-		pthread_join(philo[idx++].id, NULL);
-	idx = 0;
-	while (idx < game->philo_num)
-		pthread_mutex_destroy(&(game->forks[idx++]));
+	while (i < game->philo_num)
+		pthread_join(philo[i++].id, NULL);
+	i = 0;
+	while (i < game->philo_num)
+		pthread_mutex_destroy(&(game->forks[i++]));
 	free(game->philo);
 	free(game->forks);
 	pthread_mutex_destroy(&(game->write));
 }
 
+void	ft_eat_check(t_game *game, t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->philo_num && philo[i].eat_cnt > game->must_eat_num)
+		i++;
+	if (i == game->philo_num)
+		game->eat_check = 1;
+}
+
 void	ft_death_check(t_game *game, t_philo *philo)
 {
-	int		idx;
+	int		i;
 	int		death_check;
 
 	death_check = 0;
-	while (game->eat_num != game->philo_num)
+	while (!game->eat_check)
 	{
-		idx = 0;
-		while ((idx < game->philo_num) && (!(game->die)))
+		i = 0;
+		while ((i < game->philo_num) && (!(game->die)))
 		{
 			pthread_mutex_lock(&(game->eating));
-			if (ft_time() - philo[idx].check_d_time > game->time_to_die)
+			if (ft_time() - philo[i].check_d_time > game->time_to_die)
 			{
-				ft_printf(game, "died", idx);
+				ft_printf(game, "died", i);
 				death_check = 1;
 			}
 			pthread_mutex_unlock(&(game->eating));
 			usleep(100);
-			idx++;
+			i++;
 		}
 		if (death_check)
 			break ;
+		ft_eat_check(game, game->philo);
 	}
 }
 
 int		ft_philo_start(t_game *game)
 {
-	int		idx;
+	int		i;
 	void 	*v_philo;
 	
-	idx = 0;
+	i = 0;
 	game->start_time = ft_time();
-	while (idx < game->philo_num)
+	while (i < game->philo_num)
 	{	
-		(game->philo[idx]).check_d_time = ft_time();
-		v_philo = (void *)&(game->philo[idx]);
-		if (pthread_create(&(game->philo[idx].thread_id), NULL, ft_pthread, v_philo))
+		(game->philo[i]).check_d_time = ft_time();
+		v_philo = (void *)&(game->philo[i]);
+		if (pthread_create(&(game->philo[i].thread_id), NULL, ft_pthread, v_philo))
 			return (-1);
-		idx++;
+		i++;
 	}
 	//사망자 check 해줘야 합니다.
 	ft_death_check(game, game->philo);

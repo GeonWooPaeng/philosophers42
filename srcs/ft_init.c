@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 14:17:50 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/27 21:03:27 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/28 14:58:25 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int		ft_philo_init(t_game *game)
 		game->philo[idx].id = idx;
 		game->philo[idx].left_fork = idx;
 		game->philo[idx].right_fork = (idx + 1) % game->philo_num;
+		game->philo[idx].check_d_time = 0;
+		game->philo[idx].eat_cnt = 0;
 		game->philo[idx].game = game;
 		if (pthread_mutex_init(&(game->forks[idx]), NULL))
 			return (-1);
@@ -47,11 +49,14 @@ int		ft_philo_input(t_game *game, char *argv[], int argc)
 	game->time_to_eat = ft_atoi(argv[3]);
 	game->time_to_sleep = ft_atoi(argv[4]);
 	game->must_eat_num = 0;
-	game->eat_num = 0;
 	game->start_time = 0;
-	game->check_d_time = 0;
+	game->eat_check = 0;
 	if (argc == 6)
+	{
 		game->must_eat_num = ft_atoi(argv[5]);
+		if (game->must_eat_num <= 0)
+			return (-1);
+	}
 	if (ft_check_init(game))
 		return (-1);
 	if (ft_philo_init(game))
