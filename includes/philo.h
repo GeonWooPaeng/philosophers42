@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 12:20:39 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/28 14:56:21 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/07/31 17:54:40 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,20 @@ typedef struct		s_game
 	t_philo			*philo;
 }					t_game;
 
-
 /*
 **ft_utils.c
 */
 int			ft_isspace(char c);
 int			ft_atoi(char *str);
 int			ft_error(char *s);
+
+/*
+**ft_time.c
+*/
 long long	ft_time();
 void		ft_printf(t_game *game, char *str, int id);
 void		ft_sleeping(t_game *game);
+void	ft_eating(t_game *game);
 
 /*
 **ft_init.c
@@ -64,13 +68,23 @@ int		ft_philo_init(t_game *game);
 int		ft_check_init(t_game *game);
 
 /*
-**main.c
+**ft_check.c
+*/
+void	ft_eat_check(t_game *game, t_philo *philo);
+void	ft_death_check(t_game *game, t_philo *philo);
+
+/*
+**ft_philo.c
 */
 void	ft_philo_eat(t_philo *philo);
 void	ft_philo_do(t_philo *philo);
 void	*ft_pthread(void *philo);
 void	ft_end_philo(t_game *game);
 int		ft_philo_start(t_game *game);
+
+/*
+**main.c
+*/
 int		main(int argc, char *argv[]);
 
 #endif
