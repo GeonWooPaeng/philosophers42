@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 12:20:39 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/31 17:54:40 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/01 23:36:58 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <sys/time.h>
 
 typedef struct		s_philo
 {
@@ -25,7 +26,7 @@ typedef struct		s_philo
 	int				right_fork;
 	long long		check_d_time;
 	int				eat_cnt;
-	t_game			*game;
+	struct s_game	*game;
 	pthread_t		thread_id;
 }					t_philo;
 
@@ -58,28 +59,28 @@ int			ft_error(char *s);
 long long	ft_time();
 void		ft_printf(t_game *game, char *str, int id);
 void		ft_sleeping(t_game *game);
-void	ft_eating(t_game *game);
-
-/*
-**ft_init.c
-*/
-int		ft_philo_input(t_game *game, char *argv[], int argc);
-int		ft_philo_init(t_game *game);
-int		ft_check_init(t_game *game);
+void		ft_eating(t_game *game);
 
 /*
 **ft_check.c
 */
 void	ft_eat_check(t_game *game, t_philo *philo);
 void	ft_death_check(t_game *game, t_philo *philo);
+int		ft_check_init(t_game *game);
+
+/*
+**ft_init.c
+*/
+int		ft_philo_input(t_game *game, char *argv[], int argc);
+int		ft_philo_init(t_game *game);
 
 /*
 **ft_philo.c
 */
-void	ft_philo_eat(t_philo *philo);
-void	ft_philo_do(t_philo *philo);
+void	ft_philo_eat(t_game *game, t_philo *philo);
+void	ft_philo_do(t_game *game, t_philo *philo);
 void	*ft_pthread(void *philo);
-void	ft_end_philo(t_game *game);
+void	ft_end_philo(t_game *game, t_philo *philo);
 int		ft_philo_start(t_game *game);
 
 /*

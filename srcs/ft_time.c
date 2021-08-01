@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 17:43:13 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/31 17:54:53 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/01 23:23:55 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	ft_sleeping(t_game *game)
 	start_s_time = ft_time();
 	while (!(game->die))
 	{
-		now_s_time = ft_time();
 		if ((now_s_time - start_s_time) >= sleep_time)
 			break ;
+		now_s_time = ft_time();
 		usleep(10);
 	}
 }

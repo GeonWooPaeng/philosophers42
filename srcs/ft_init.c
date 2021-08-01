@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 14:17:50 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/28 14:58:25 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/01 21:40:43 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@ int		ft_philo_init(t_game *game)
 	return (0);
 }
 
-int		ft_check_init(t_game *game)
-{
-	return (game->philo_num < 2 || game->time_to_die < 0 ||
-	game->time_to_eat < 0 || game->time_to_sleep < 0);
-}
-
 int		ft_philo_input(t_game *game, char *argv[], int argc)
 {
 	game->philo_num = ft_atoi(argv[1]);
@@ -49,8 +43,9 @@ int		ft_philo_input(t_game *game, char *argv[], int argc)
 	game->time_to_eat = ft_atoi(argv[3]);
 	game->time_to_sleep = ft_atoi(argv[4]);
 	game->must_eat_num = 0;
-	game->start_time = 0;
+	game->die = 0;
 	game->eat_check = 0;
+	game->start_time = 0;
 	if (argc == 6)
 	{
 		game->must_eat_num = ft_atoi(argv[5]);

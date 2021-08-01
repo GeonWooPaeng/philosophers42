@@ -6,7 +6,7 @@
 #    By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/05 12:11:44 by gpaeng            #+#    #+#              #
-#    Updated: 2021/07/10 23:52:13 by gpaeng           ###   ########.fr        #
+#    Updated: 2021/08/01 22:52:49 by gpaeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,10 @@ DIR_S = ./srcs/
 DIR_O = ./
 
 SRC =	ft_utils.c	\
+		ft_check.c	\
 		ft_init.c	\
+		ft_time.c	\
+		ft_philo.c	\
 		main.c		\
 
 SRCS = $(addprefix $(DIR_S), $(SRC))
