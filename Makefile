@@ -6,7 +6,7 @@
 #    By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/05 12:11:44 by gpaeng            #+#    #+#              #
-#    Updated: 2021/08/02 14:57:41 by gpaeng           ###   ########.fr        #
+#    Updated: 2021/08/02 21:13:38 by gpaeng           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ DIR_O = ./
 SRC =	ft_utils.c	\
 		ft_check.c	\
 		ft_init.c	\
+		ft_time.c	\
 		ft_philo.c	\
 		main.c		\
 

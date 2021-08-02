@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 17:45:10 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/08/02 15:04:01 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/02 21:13:01 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_philo_eat(t_game *game, t_philo *philo)
 	philo->check_d_time = ft_time();
 	pthread_mutex_unlock(&(game->eating));
 	(philo->eat_cnt)++;
-	usleep(game->time_to_eat * 1000);
+	ft_eating_time(game);
 }
 
 int		ft_philo_do(t_game *game, t_philo *philo)
@@ -50,7 +50,7 @@ void	*ft_pthread(void *philo)
 		if (ft_philo_do(game, philo_copy))
 			break ;
 		ft_printf(game, "is sleeping", philo_copy->id);
-		usleep(game->time_to_sleep * 1000);
+		ft_sleeping_time(game);
 		ft_printf(game, "is thinking", philo_copy->id);
 	}
 	return (0);

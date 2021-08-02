@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 17:46:24 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/08/02 15:02:04 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/02 16:00:10 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	ft_eat_check(t_game *game, t_philo *philo)
 	int	i;
 
 	i = 0;
-	while (game->must_eat_num != 0 && i < game->philo_num && philo[i].eat_cnt > game->must_eat_num)
+	while (game->must_eat_num != 0 && i < game->philo_num
+	&& philo[i].eat_cnt > game->must_eat_num)
 		i++;
 	if (i == game->philo_num)
 		game->eat_check = 1;
@@ -25,7 +26,7 @@ void	ft_eat_check(t_game *game, t_philo *philo)
 
 int		ft_check_init(t_game *game)
 {
-	if (game->philo_num < 2 || game->philo_num > 200
+	if	(game->philo_num < 2 || game->philo_num > 200
 	|| game-> time_to_die < 60 || game->time_to_eat < 60
 	|| game->time_to_sleep < 60)
 		return (-1);

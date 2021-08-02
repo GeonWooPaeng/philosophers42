@@ -16,4 +16,4 @@ https://goddaehee.tistory.com/253
 
 < github >
 https://github.com/Gaspachow/philosophers-42
-https://github.com/Glagan/42-Philosophers/tree/master/philo_one
+https://github.com/Glagan/42-Philosophers/tree/master/philoone_

@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 12:20:39 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/08/02 14:57:30 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/02 21:11:58 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,14 @@ typedef struct		s_game
 int			ft_isspace(char c);
 int			ft_atoi(char *str);
 int			ft_error(char *s);
-long long	ft_time();
 void		ft_printf(t_game *game, char *str, int id);
+
+/*
+**ft_time.c
+*/
+long long	ft_time();
+void	ft_sleeping_time(t_game *game);
+void	ft_eating_time(t_game *game);
 
 /*
 **ft_check.c
