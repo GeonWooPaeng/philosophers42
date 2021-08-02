@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 12:20:39 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/08/01 23:36:58 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/02 14:57:30 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,8 @@ typedef struct		s_game
 int			ft_isspace(char c);
 int			ft_atoi(char *str);
 int			ft_error(char *s);
-
-/*
-**ft_time.c
-*/
 long long	ft_time();
 void		ft_printf(t_game *game, char *str, int id);
-void		ft_sleeping(t_game *game);
-void		ft_eating(t_game *game);
 
 /*
 **ft_check.c
@@ -71,6 +65,7 @@ int		ft_check_init(t_game *game);
 /*
 **ft_init.c
 */
+int		ft_mutex_init(t_game *game);
 int		ft_philo_input(t_game *game, char *argv[], int argc);
 int		ft_philo_init(t_game *game);
 
@@ -78,10 +73,11 @@ int		ft_philo_init(t_game *game);
 **ft_philo.c
 */
 void	ft_philo_eat(t_game *game, t_philo *philo);
-void	ft_philo_do(t_game *game, t_philo *philo);
+int		ft_philo_do(t_game *game, t_philo *philo);
 void	*ft_pthread(void *philo);
 void	ft_end_philo(t_game *game, t_philo *philo);
-int		ft_philo_start(t_game *game);
+int		ft_philo_start(t_game *game, t_philo *philo);
+void	ft_after_eating(t_game *game, t_philo *philo);
 
 /*
 **main.c

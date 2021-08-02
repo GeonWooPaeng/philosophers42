@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 13:26:58 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/07/31 17:54:49 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/02 14:54:29 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,27 @@ int		ft_error(char *s)
 {
 	printf("%s\n", s);
 	return (-1);
+}
+
+long long ft_time()
+{
+	struct timeval time;
+	long long ms;
+	
+	gettimeofday(&time, NULL);
+	ms = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (ms);
+}
+
+void	ft_printf(t_game *game, char *str, int id)
+{
+	pthread_mutex_lock(&(game->write));
+	if (!(game->die))
+	{
+		printf("%lli ", ft_time() - game->start_time); //속도
+		printf("%i ", id + 1);
+		printf("%s\n", str);
+	}
+	pthread_mutex_unlock(&(game->write));
+	return ;
 }

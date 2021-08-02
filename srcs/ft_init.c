@@ -6,11 +6,31 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 14:17:50 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/08/01 21:40:43 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/02 14:38:15 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+int		ft_mutex_init(t_game *game)
+{
+	int idx;
+
+	if (pthread_mutex_init(&(game->write), NULL))
+		return (-1);
+	if (pthread_mutex_init(&(game->eating), NULL))
+		return (-1);
+	if (!(game->forks = malloc(sizeof(pthread_mutex_t) * game->philo_num)))
+		return (-1);
+	idx = 0;
+	while (idx < game->philo_num)
+	{
+		if (pthread_mutex_init(&(game->forks[idx]), NULL))
+			return (-1);
+		idx++;
+	}
+	return (0);
+}
 
 int		ft_philo_init(t_game *game)
 {
@@ -18,8 +38,6 @@ int		ft_philo_init(t_game *game)
 
 	idx = 0;
 	if (!(game->philo = malloc(sizeof(t_game) * game->philo_num)))
-		return (-1);
-	if (!(game->forks = malloc(sizeof(pthread_mutex_t) * game->philo_num)))
 		return (-1);
 	while (idx < game->philo_num)
 	{
@@ -29,8 +47,6 @@ int		ft_philo_init(t_game *game)
 		game->philo[idx].check_d_time = 0;
 		game->philo[idx].eat_cnt = 0;
 		game->philo[idx].game = game;
-		if (pthread_mutex_init(&(game->forks[idx]), NULL))
-			return (-1);
 		idx++;
 	}
 	return (0);
@@ -46,13 +62,15 @@ int		ft_philo_input(t_game *game, char *argv[], int argc)
 	game->die = 0;
 	game->eat_check = 0;
 	game->start_time = 0;
+	if (ft_check_init(game))
+		return (-1);
 	if (argc == 6)
 	{
 		game->must_eat_num = ft_atoi(argv[5]);
 		if (game->must_eat_num <= 0)
 			return (-1);
 	}
-	if (ft_check_init(game))
+	if (ft_mutex_init(game))
 		return (-1);
 	if (ft_philo_init(game))
 		return (-1);

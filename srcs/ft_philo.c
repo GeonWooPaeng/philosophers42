@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 17:45:10 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/08/01 23:36:09 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/02 15:04:01 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,38 +19,38 @@ void	ft_philo_eat(t_game *game, t_philo *philo)
 	philo->check_d_time = ft_time();
 	pthread_mutex_unlock(&(game->eating));
 	(philo->eat_cnt)++;
-	ft_eating(game);
+	usleep(game->time_to_eat * 1000);
 }
 
-void	ft_philo_do(t_game *game, t_philo *philo)
+int		ft_philo_do(t_game *game, t_philo *philo)
 {
-	//fork
 	pthread_mutex_lock(&(game->forks[philo->left_fork]));
 	ft_printf(game, "has taken a fork", philo->id);
 	pthread_mutex_lock(&(game->forks[philo->right_fork]));
 	ft_printf(game, "has taken a fork", philo->id);
-	//eat
 	ft_philo_eat(philo->game, philo);
 	pthread_mutex_unlock(&(game->forks[philo->left_fork]));
 	pthread_mutex_unlock(&(game->forks[philo->right_fork]));
+	if (game->eat_check)
+		return (-1);
+	return (0);
 }
 
 void	*ft_pthread(void *philo)
 {
 	t_game	*game;
 	t_philo *philo_copy;
-
+	
 	philo_copy = (t_philo *)philo;
 	game = philo_copy->game;
-	if ((philo_copy->id) % 2)
-		usleep(15000);
+	if (philo_copy->id % 2)
+		usleep(10000);
 	while (!(game->die))
 	{
-		ft_philo_do(game, philo_copy);
-		if (game->eat_check)
+		if (ft_philo_do(game, philo_copy))
 			break ;
 		ft_printf(game, "is sleeping", philo_copy->id);
-		ft_sleeping(game);
+		usleep(game->time_to_sleep * 1000);
 		ft_printf(game, "is thinking", philo_copy->id);
 	}
 	return (0);
@@ -62,7 +62,7 @@ void	ft_end_philo(t_game *game, t_philo *philo)
 	
 	i = 0;
 	while (i < game->philo_num)
-		pthread_join(philo[i++].id, NULL);
+		pthread_join(philo[i++].thread_id, NULL);
 	i = 0;
 	while (i < game->philo_num)
 		pthread_mutex_destroy(&(game->forks[i++]));
@@ -72,18 +72,16 @@ void	ft_end_philo(t_game *game, t_philo *philo)
 	pthread_mutex_destroy(&(game->write));
 }
 
-int		ft_philo_start(t_game *game)
+int		ft_philo_start(t_game *game, t_philo *philo)
 {
 	int		i;
 	void 	*v_philo;
-	t_philo philo;
-
+	
 	i = 0;
-	philo = game->philo;
 	game->start_time = ft_time();
 	while (i < game->philo_num)
 	{	
-		(game->philo[i]).check_d_time = ft_time();
+		philo[i].check_d_time = ft_time();
 		v_philo = (void *)&(philo[i]);
 		if (pthread_create(&(philo[i].thread_id), NULL, ft_pthread, v_philo))
 			return (-1);

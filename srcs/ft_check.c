@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 17:46:24 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/08/01 22:54:48 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/02 15:02:04 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_eat_check(t_game *game, t_philo *philo)
 	int	i;
 
 	i = 0;
-	while (i < game->philo_num && philo[i].eat_cnt > game->must_eat_num)
+	while (game->must_eat_num != 0 && i < game->philo_num && philo[i].eat_cnt > game->must_eat_num)
 		i++;
 	if (i == game->philo_num)
 		game->eat_check = 1;
@@ -36,19 +36,18 @@ void	ft_death_check(t_game *game, t_philo *philo)
 {
 	int		i;
 
-	while (!game->eat_check)
+	while (!(game->eat_check))
 	{
 		i = 0;
 		while ((i < game->philo_num) && (!(game->die)))
 		{
 			pthread_mutex_lock(&(game->eating));
-			if (ft_time() - philo[i].check_d_time > game->time_to_die)
+			if ((ft_time() - philo[i].check_d_time) > game->time_to_die)
 			{
 				ft_printf(game, "died", i);
 				game->die = 1;
 			}
 			pthread_mutex_unlock(&(game->eating));
-			usleep(100);
 			i++;
 		}
 		if (game->die)
