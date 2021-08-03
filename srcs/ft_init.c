@@ -6,21 +6,22 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 14:17:50 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/08/02 14:38:15 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/03 13:11:37 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int		ft_mutex_init(t_game *game)
+int	ft_mutex_init(t_game *game)
 {
-	int idx;
+	int	idx;
 
 	if (pthread_mutex_init(&(game->write), NULL))
 		return (-1);
 	if (pthread_mutex_init(&(game->eating), NULL))
 		return (-1);
-	if (!(game->forks = malloc(sizeof(pthread_mutex_t) * game->philo_num)))
+	game->forks = malloc(sizeof(pthread_mutex_t) * game->philo_num);
+	if (!(game->forks))
 		return (-1);
 	idx = 0;
 	while (idx < game->philo_num)
@@ -32,12 +33,13 @@ int		ft_mutex_init(t_game *game)
 	return (0);
 }
 
-int		ft_philo_init(t_game *game)
+int	ft_philo_init(t_game *game)
 {
-	int idx;
+	int	idx;
 
 	idx = 0;
-	if (!(game->philo = malloc(sizeof(t_game) * game->philo_num)))
+	game->philo = malloc(sizeof(t_game) * game->philo_num);
+	if (!(game->philo))
 		return (-1);
 	while (idx < game->philo_num)
 	{
@@ -52,7 +54,7 @@ int		ft_philo_init(t_game *game)
 	return (0);
 }
 
-int		ft_philo_input(t_game *game, char *argv[], int argc)
+int	ft_philo_input(t_game *game, char *argv[], int argc)
 {
 	game->philo_num = ft_atoi(argv[1]);
 	game->time_to_die = ft_atoi(argv[2]);

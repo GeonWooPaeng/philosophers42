@@ -6,22 +6,22 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 13:26:58 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/08/02 21:18:06 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/03 13:08:43 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int		ft_isspace(char c)
+int	ft_isspace(char c)
 {
-	return (c == '\f' || c == '\n' || c == '\r' ||
-	c == '\t' || c == '\v' || c == ' ');
+	return (c == '\f' || c == '\n' || c == '\r'
+		|| c == '\t' || c == '\v' || c == ' ');
 }
 
-int		ft_atoi(char *str)
+int	ft_atoi(char *str)
 {
-	int result;
-	int sign;
+	int	result;
+	int	sign;
 
 	result = 0;
 	sign = 1;
@@ -40,7 +40,7 @@ int		ft_atoi(char *str)
 	return (result * sign);
 }
 
-int		ft_error(char *s)
+int	ft_error(char *s)
 {
 	printf("%s\n", s);
 	return (-1);
@@ -51,7 +51,7 @@ void	ft_printf(t_game *game, char *str, int id)
 	pthread_mutex_lock(&(game->write));
 	if (!(game->die))
 	{
-		printf("%lli ", ft_time() - game->start_time); //속도
+		printf("%lli ", ft_time() - game->start_time);
 		printf("%i ", id + 1);
 		printf("%s\n", str);
 	}

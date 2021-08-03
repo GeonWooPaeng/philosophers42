@@ -6,13 +6,13 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 12:20:43 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/08/02 10:13:33 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/03 13:02:33 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int		main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
 	t_game	game;
 

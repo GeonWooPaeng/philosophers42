@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 17:45:10 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/08/02 21:13:01 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/03 12:59:40 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_philo_eat(t_game *game, t_philo *philo)
 	ft_eating_time(game);
 }
 
-int		ft_philo_do(t_game *game, t_philo *philo)
+int	ft_philo_do(t_game *game, t_philo *philo)
 {
 	pthread_mutex_lock(&(game->forks[philo->left_fork]));
 	ft_printf(game, "has taken a fork", philo->id);
@@ -39,8 +39,8 @@ int		ft_philo_do(t_game *game, t_philo *philo)
 void	*ft_pthread(void *philo)
 {
 	t_game	*game;
-	t_philo *philo_copy;
-	
+	t_philo	*philo_copy;
+
 	philo_copy = (t_philo *)philo;
 	game = philo_copy->game;
 	if (philo_copy->id % 2)
@@ -58,8 +58,8 @@ void	*ft_pthread(void *philo)
 
 void	ft_end_philo(t_game *game, t_philo *philo)
 {
-	int		i;
-	
+	int	i;
+
 	i = 0;
 	while (i < game->philo_num)
 		pthread_join(philo[i++].thread_id, NULL);
@@ -72,11 +72,11 @@ void	ft_end_philo(t_game *game, t_philo *philo)
 	pthread_mutex_destroy(&(game->write));
 }
 
-int		ft_philo_start(t_game *game, t_philo *philo)
+int	ft_philo_start(t_game *game, t_philo *philo)
 {
 	int		i;
-	void 	*v_philo;
-	
+	void	*v_philo;
+
 	i = 0;
 	game->start_time = ft_time();
 	while (i < game->philo_num)
