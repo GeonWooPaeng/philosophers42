@@ -6,7 +6,7 @@
 /*   By: gpaeng <gpaeng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 13:26:58 by gpaeng            #+#    #+#             */
-/*   Updated: 2021/08/03 13:08:43 by gpaeng           ###   ########.fr       */
+/*   Updated: 2021/08/03 15:16:20 by gpaeng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	ft_printf(t_game *game, char *str, int id)
 	pthread_mutex_lock(&(game->write));
 	if (!(game->die))
 	{
-		printf("%lli ", ft_time() - game->start_time);
-		printf("%i ", id + 1);
+		printf("%lld ", ft_time() - game->start_time);
+		printf("%d ", id + 1);
 		printf("%s\n", str);
 	}
 	pthread_mutex_unlock(&(game->write));
